@@ -50,6 +50,17 @@ async def user_update(user: User):
     if editado is False:
         return {"error": "Usuario inexistente"}
 
+@app.delete("/user/")
+async def user_delete(nombre:str):
+    """Modificar usuarios"""
+    editado = False
+    for clave, valor in enumerate(users):
+        if valor.name == nombre and editado is False:
+            del users[clave]
+            editado = True
+    if editado is False:
+        return {"error": "Usuario inexistente"}
+
 # region Funciones
 def search_user(edad:int):
     """Buscar usuario"""
