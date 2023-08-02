@@ -30,6 +30,16 @@ async def users_query(edad: int):
 async def users_querys(edad: int, alias:str=""):
     """Lista usuarios por edad"""
     return search_user_(alias=alias, edad=edad)
+
+@app.post("/user/")
+async def user_create(user: User):
+    """Guardar usuarios"""
+    user_filter = filter(lambda user_: user_.name == user.name, users)
+    if len(list(user_filter))>0:
+        return {"error": "Usuario existente"}
+    users.append(user)
+
+# region Funciones
 def search_user(edad:int):
     """Buscar usuario"""
     try:
@@ -45,3 +55,4 @@ def search_user_(alias:str, edad:int):
         return list(user)[0]
     except Exception:
         return {"error": "no encontró datos"}
+# endregion
