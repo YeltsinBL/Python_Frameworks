@@ -1,5 +1,5 @@
 """Usuarios"""
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
 
 app = FastAPI()
@@ -19,13 +19,20 @@ async def users_list():
     """Lista usuarios"""
     return users
 @app.get("/users/{edad}")
-async def users_path(edad:int):
+async def users_path(edad:int, response:Response):
     """Lista usuarios por edad"""
-    return search_user(edad=edad)
+    lista = search_user(edad=edad)
+    if isinstance(lista, dict):
+        response.status_code = status.HTTP_204_NO_CONTENT
+        return lista
+    return lista
 @app.get("/userquery/")
 async def users_query(edad: int):
     """Lista usuarios por edad"""
-    return search_user(edad=edad)
+    lista = search_user(edad=edad)
+    if isinstance(lista, dict):
+        raise HTTPException(204)
+    return lista
 @app.get("/userquerys/")
 async def users_querys(edad: int, alias:str=""):
     """Lista usuarios por edad"""
@@ -36,7 +43,7 @@ async def user_create(user: User):
     """Guardar usuarios"""
     user_filter = filter(lambda user_: user_.name == user.name, users)
     if len(list(user_filter))>0:
-        return {"error": "Usuario existente"}
+        raise HTTPException(404,"El usuario ya existe")
     users.append(user)
 
 @app.put("/user/")
