@@ -39,6 +39,17 @@ async def user_create(user: User):
         return {"error": "Usuario existente"}
     users.append(user)
 
+@app.put("/user/")
+async def user_update(user: User):
+    """Modificar usuarios"""
+    editado = False
+    for clave, valor in enumerate(users):
+        if valor.name == user.name and editado is False:
+            users[clave] = user
+            editado = True
+    if editado is False:
+        return {"error": "Usuario inexistente"}
+
 # region Funciones
 def search_user(edad:int):
     """Buscar usuario"""
