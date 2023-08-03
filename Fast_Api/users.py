@@ -14,7 +14,7 @@ users = [User(name="Yeltsin",alias="BL",age=24),
          User(name="Yelt",alias="B",age=22),
          User(name="Yel",alias="",age=20)]
 
-@app.get("/users")
+@app.get("/users", response_model=list)
 async def users_list():
     """Lista usuarios"""
     return users
@@ -26,7 +26,7 @@ async def users_path(edad:int, response:Response):
         response.status_code = status.HTTP_204_NO_CONTENT
         return lista
     return lista
-@app.get("/userquery/")
+@app.get("/userquery/", response_model=list)
 async def users_query(edad: int):
     """Lista usuarios por edad"""
     lista = search_user(edad=edad)
@@ -38,13 +38,14 @@ async def users_querys(edad: int, alias:str=""):
     """Lista usuarios por edad"""
     return search_user_(alias=alias, edad=edad)
 
-@app.post("/user/")
+@app.post("/user/", response_model=User)
 async def user_create(user: User):
     """Guardar usuarios"""
     user_filter = filter(lambda user_: user_.name == user.name, users)
     if len(list(user_filter))>0:
         raise HTTPException(404,"El usuario ya existe")
     users.append(user)
+    return users
 
 @app.put("/user/")
 async def user_update(user: User):
