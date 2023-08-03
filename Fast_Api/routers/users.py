@@ -1,8 +1,10 @@
 """Usuarios"""
-from fastapi import FastAPI, Response, status, HTTPException
+from fastapi import APIRouter, Response, status, HTTPException
 from pydantic import BaseModel
 
-app = FastAPI()
+router = APIRouter(prefix="/users",
+                   tags=["users"],
+                   responses={404:{"message":"No encontrado"}})
 
 class User(BaseModel):
     """Clase Usuario"""
@@ -14,11 +16,11 @@ users = [User(name="Yeltsin",alias="BL",age=24),
          User(name="Yelt",alias="B",age=22),
          User(name="Yel",alias="",age=20)]
 
-@app.get("/users", response_model=list)
+@router.get("/", response_model=list)
 async def users_list():
     """Lista usuarios"""
     return users
-@app.get("/users/{edad}")
+@router.get("/{edad}")
 async def users_path(edad:int, response:Response):
     """Lista usuarios por edad"""
     lista = search_user(edad=edad)
@@ -26,19 +28,19 @@ async def users_path(edad:int, response:Response):
         response.status_code = status.HTTP_204_NO_CONTENT
         return lista
     return lista
-@app.get("/userquery/", response_model=list)
+@router.get("/userquery/", response_model=list)
 async def users_query(edad: int):
     """Lista usuarios por edad"""
     lista = search_user(edad=edad)
     if isinstance(lista, dict):
         raise HTTPException(204)
     return lista
-@app.get("/userquerys/")
+@router.get("/userquerys/")
 async def users_querys(edad: int, alias:str=""):
     """Lista usuarios por edad"""
     return search_user_(alias=alias, edad=edad)
 
-@app.post("/user/", response_model=User)
+@router.post("/", response_model=User)
 async def user_create(user: User):
     """Guardar usuarios"""
     user_filter = filter(lambda user_: user_.name == user.name, users)
@@ -47,7 +49,7 @@ async def user_create(user: User):
     users.append(user)
     return users
 
-@app.put("/user/")
+@router.put("/")
 async def user_update(user: User):
     """Modificar usuarios"""
     editado = False
@@ -58,7 +60,7 @@ async def user_update(user: User):
     if editado is False:
         return {"error": "Usuario inexistente"}
 
-@app.delete("/user/")
+@router.delete("/")
 async def user_delete(nombre:str):
     """Modificar usuarios"""
     editado = False
