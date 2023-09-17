@@ -55,3 +55,7 @@ pip install python-dotenv
 - config: se realizó las configuraciones para la BD (conexión y evitar errores).
 - main: configuración del sistema.
 - __init__: configuración cuando inicia del sitema.
+
+### Routers
+
+- Users: rutas (path) de las apis de usuario.

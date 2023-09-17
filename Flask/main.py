@@ -3,6 +3,7 @@
 from flask_marshmallow import Marshmallow
 from config import Config
 from flask import Flask
+from routers.users import user_bp
 # from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
@@ -14,6 +15,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS']=Config.SQLALCHEMY_TRACK_MODIFICATIO
 # SQLAlchemy(app)
 Marshmallow(app)
 
+app.register_blueprint(user_bp)
 
 # region INICIO TODO EN UNO
 
