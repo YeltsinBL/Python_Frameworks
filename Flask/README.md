@@ -43,6 +43,12 @@ pip install python-dotenv
 ### DB
 
 - Client: se crearon las variables de SQLAlchemy y Marshmallow.
+- Models:
+
+  - User: modelo de usuario para que cree automáticamente la tabla en la BD.
+- Schemas:
+
+  - User: formato a las respuestas de los apis.
 
 ### Flask (principal)
 
