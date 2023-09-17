@@ -16,6 +16,7 @@ flask --app nombre_archivo_ejecutar run --debug
 - Instalar Flask-SQLAlchemy.
 - Instalar PyMySQL
 - Instalar Marshmallow
+- Instalar Dotenv
 
 ```sh
 # Instalar entorno virtual
@@ -30,8 +31,21 @@ pip install -U Flask-SQLAlchemy
 pip install pymysql
 # Instalar Marshmallow
 pip install flask_marshmallow marshmallow-sqlalchemy
+# Instalar Dotenv
+pip install python-dotenv
 ```
 
 ## Procedimiento
 
 - Se realizó todo en un solo archivo `main.py`.
+- Se procedió a separar el código en carpetas y archivos
+
+### DB
+
+- Client: se crearon las variables de SQLAlchemy y Marshmallow.
+
+### Flask (principal)
+
+- config: se realizó las configuraciones para la BD (conexión y evitar errores).
+- main: configuración del sistema.
+- __init__: configuración cuando inicia del sitema.
