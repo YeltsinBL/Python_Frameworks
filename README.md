@@ -13,3 +13,8 @@ Ejercicios de los diferentes frameworks que se utilizan con Python: Django vs Fl
 - Conexiones a Bases de datos:
   - MongoDB local.
 - Depuración.
+
+## Flask
+
+- Entorno Virtual.
+- Apis Get, Post, Put, Delete.
