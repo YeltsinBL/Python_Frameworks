@@ -4,9 +4,8 @@ Ejercicios de los diferentes frameworks que se utilizan con Python: Django vs Fl
 
 ## Fast API
 
-- Apis Get, Post, Put, Delete.
+- Apis Get, Post, Put, Delete de Usuarios en listas.
 - Gestionar códigos de estados.
-- CRUD Básico de Usuarios en listas.
 - Autenticación Básica
   - Utilización de OAuth2.
   - Utilización de JWT.
@@ -17,4 +16,7 @@ Ejercicios de los diferentes frameworks que se utilizan con Python: Django vs Fl
 ## Flask
 
 - Entorno Virtual.
-- Apis Get, Post, Put, Delete.
+- Apis Get, Post, Put, Delete de Usuario.
+- Conexión a Base de datos:
+  - MySQL desplegado en Docker.
+- Depuración.
